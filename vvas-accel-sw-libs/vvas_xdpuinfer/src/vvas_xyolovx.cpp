@@ -20,8 +20,13 @@ vvas_xyolovx::vvas_xyolovx (vvas_xkpriv * kpriv, const std::string & model_name,
 
 bool compare_by_area (const vitis::ai::YOLOvXResult::BoundingBox &box1, const vitis::ai::YOLOvXResult::BoundingBox &box2)
 {
-  float area1 = (box1.width * box1.height);
-  float area2 = (box2.width * box2.height);
+  float w1 = box1[2] - box1[0];
+  float w2 = box2[2] - box2[0];
+  float h1 = box1[3] - box1[1];
+  float h2 = box2[3] - box2[1];
+
+  float area1 = (w1 * h1);
+  float area2 = (w2 * h2);
   return (area1 > area2);
 }
 
@@ -92,10 +97,10 @@ vvas_xyolovx::run (vvas_xkpriv * kpriv, std::vector<cv::Mat>& images,
           parent_predict = gst_inference_prediction_new_full (&parent_bbox);
         }
         int label = box.label;
-        float xmin = box.x * cols + 1;
-        float ymin = box.y * rows + 1;
-        float xmax = xmin + box.width * cols;
-        float ymax = ymin + box.height * rows;
+        float xmin = box[0];
+        float ymin = box[1];
+        float xmax = box[2];
+        float ymax = box[3];
         if (xmin < 0.)
           xmin = 1.;
         if (ymin < 0.)
