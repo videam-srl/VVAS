@@ -111,6 +111,9 @@ extern "C"
 #ifdef ENABLE_PLATENUM
 #include "vvas_xplatenum.hpp"
 #endif
+#ifdef ENABLE_YOLOVX
+#include "vvas_xyolovx.hpp"
+#endif
 
 using namespace cv;
 using namespace std;
