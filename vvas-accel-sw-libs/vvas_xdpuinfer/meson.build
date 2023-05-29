@@ -140,7 +140,7 @@ endif
 
 # ADD YOLOVX
 if get_option('YOLOVX') != '0'
-  add_project_arguments('-DENABLE_YOLOVX, language : 'c')
+  add_project_arguments('-DENABLE_YOLOVX', language : 'c')
   add_project_arguments('-DENABLE_YOLOVX', language : 'cpp')
   yolovx_dep = cc.find_library('vitis_ai_library-yolovx')
   sources += [
