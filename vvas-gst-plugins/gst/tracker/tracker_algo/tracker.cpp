@@ -20,6 +20,7 @@
 #include "tracker_int.hpp"
 #include "correlation_filter.hpp"
 #include "Hungarian.h"
+#include <gst/gst.h>
 
 void est_histogram_rgb(Mat_img frame, Rectf roi, float *_hist, int size) {
   int i, j;
