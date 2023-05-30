@@ -271,6 +271,14 @@ input_each_node_to_tracker (GNode * node, gpointer new_objs_ptr)
   objs_data *ptr = (objs_data *) new_objs_ptr;
   GstInferencePrediction *prediction = (GstInferencePrediction *) node->data;
 
+  if (prediction) {
+    pstr = gst_inference_prediction_to_string(prediction);
+    LOG_MESSAGE(LOG_LEVEL_DEBUG, kpriv->log_level, "prediction tree : \n%s", pstr);
+    free(pstr);
+  } else {
+    LOG_MESSAGE(LOG_LEVEL_DEBUG, kpriv->log_level, "prediction is null");
+  }
+
   if (ptr->num_objs >= MAX_OBJ_TRACK)
     return FALSE;
   else if (!node->parent)

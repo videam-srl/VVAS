@@ -556,7 +556,7 @@ vvas_xinitmodel (vvas_xkpriv * kpriv, int modelclass)
       break;
     }
 #endif
-#ifdef ENABLE_PLATEDETECT
+#ifdef ENABLE_YOLOVX
       case VVAS_XCLASS_YOLOVX:
     {
       model = new vvas_xyolovx(kpriv, kpriv->elfname, kpriv->need_preprocess);
