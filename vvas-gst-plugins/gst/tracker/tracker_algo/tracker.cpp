@@ -650,15 +650,19 @@ void track_by_detection(vvas_tracker **tracker, objs_data new_objs, int *ids, Ma
   }
 
   int obj = min(new_objs.num_objs, MAX_OBJ_TRACK);
+  GST_DEBUG("number of objects: %d", obj);
   
   //Check removes noisy objects
   for (i = 0; i < obj; i++) {
-	if ((unsigned int)new_objs.objs[i].height < tconfig.min_height ||
-	  (unsigned int)new_objs.objs[i].width < tconfig.min_width)
-	  found_det[i] = -2; //Noisy object
-	else if ((unsigned int)new_objs.objs[i].height > tconfig.max_height ||
-	  (unsigned int)new_objs.objs[i].width > tconfig.max_width)
-	  found_det[i] = -2; //Noisy object	
+    if ((unsigned int) new_objs.objs[i].height < tconfig.min_height ||
+        (unsigned int) new_objs.objs[i].width < tconfig.min_width) {
+      GST_DEBUG("object width too small");
+      found_det[i] = -2; //Noisy object
+    } else if ((unsigned int) new_objs.objs[i].height > tconfig.max_height ||
+               (unsigned int) new_objs.objs[i].width > tconfig.max_width) {
+      GST_DEBUG("object height too small");
+      found_det[i] = -2; //Noisy object}
+    }
   }
 
   //Check removes overlapped objects
@@ -667,6 +671,9 @@ void track_by_detection(vvas_tracker **tracker, objs_data new_objs, int *ids, Ma
 	bbox1.y = new_objs.objs[i].y;
 	bbox1.width = new_objs.objs[i].width;
 	bbox1.height = new_objs.objs[i].height;
+
+  GST_DEBUG("i: %d, x: %d, y: %d, w: %f, h: %f", i, bbox1.x, bbox1.y, bbox1.width, bbox1.height);
+
 
 	if (found_det[i] != -2) {
 	  for (j = 0; j < obj; j++) {
@@ -677,7 +684,8 @@ void track_by_detection(vvas_tracker **tracker, objs_data new_objs, int *ids, Ma
 		  bbox2.height = new_objs.objs[j].height;
 		  iou = percentage_occlusion(bbox1, bbox2);
 		  if (iou > tconfig.occlusion_threshold) {
-			found_det[i] = -1;
+        found_det[i] = -1;
+        GST_DEBUG("removed object %d, because overlapping with %d", i, j);
 		  }
 		}
 	  }
@@ -698,6 +706,9 @@ void track_by_detection(vvas_tracker **tracker, objs_data new_objs, int *ids, Ma
 	if (!found_det[i])
 	  det_num++;
   }
+
+  GST_DEBUG("number of detected objects after prefilter: %d", i);
+
 
   //Active and internal tracking objects 
   for (j = 0; j < MAX_OBJ_TRACK; j++) {
