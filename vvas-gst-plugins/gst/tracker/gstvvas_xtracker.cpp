@@ -274,7 +274,7 @@ input_each_node_to_tracker (GNode * node, gpointer new_objs_ptr)
   if (prediction) {
     char *pstr;
     pstr = gst_inference_prediction_to_string(prediction);
-    GST_DEBUG("prediction tree : \n%s", pstr);
+//    GST_DEBUG("prediction tree : \n%s", pstr);
     free(pstr);
   } else {
     GST_DEBUG("prediction is null");
@@ -339,7 +339,7 @@ update_each_node_with_results (GNode * node, gpointer kpriv_ptr)
   if (prediction) {
     char *pstr;
     pstr = gst_inference_prediction_to_string(prediction);
-    GST_DEBUG("prediction tree : \n%s", pstr);
+//    GST_DEBUG("prediction tree : \n%s", pstr);
     free(pstr);
   } else {
     GST_DEBUG("prediction is null");
