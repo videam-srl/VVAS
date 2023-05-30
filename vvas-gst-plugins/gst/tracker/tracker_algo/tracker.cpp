@@ -862,7 +862,7 @@ void track_by_detection(vvas_tracker **tracker, objs_data new_objs, int *ids, Ma
 }
 
 void vvas_tracker::init_tracker(track_config tconfig, Rectf bbox, Mat_img img, float *hist_new) {
-  GST_DEBUG("init tracker");
+  std::abort();
   if(tracker_type == ALGO_MOSSE)
 	mosse_tracker.init_cf(tconfig, bbox, img);
   else if (tracker_type == ALGO_KCF)
