@@ -271,15 +271,6 @@ input_each_node_to_tracker (GNode * node, gpointer new_objs_ptr)
   objs_data *ptr = (objs_data *) new_objs_ptr;
   GstInferencePrediction *prediction = (GstInferencePrediction *) node->data;
 
-  if (prediction) {
-    char *pstr;
-    pstr = gst_inference_prediction_to_string(prediction);
-//    GST_DEBUG("prediction tree : \n%s", pstr);
-    free(pstr);
-  } else {
-    GST_DEBUG("prediction is null");
-  }
-
   if (ptr->num_objs >= MAX_OBJ_TRACK)
     return FALSE;
   else if (!node->parent)
@@ -334,15 +325,6 @@ update_each_node_with_results (GNode * node, gpointer kpriv_ptr)
     classification = (GstInferenceClassification *) classes->data;
     g_free (classification->class_label);
     classification->class_label = NULL;
-  }
-
-  if (prediction) {
-    char *pstr;
-    pstr = gst_inference_prediction_to_string(prediction);
-//    GST_DEBUG("prediction tree : \n%s", pstr);
-    free(pstr);
-  } else {
-    GST_DEBUG("prediction is null");
   }
 
   return FALSE;
