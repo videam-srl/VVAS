@@ -673,7 +673,7 @@ void track_by_detection(vvas_tracker **tracker, objs_data new_objs, int *ids, Ma
 	bbox1.width = new_objs.objs[i].width;
 	bbox1.height = new_objs.objs[i].height;
 
-  GST_DEBUG("i: %d, x: %d, y: %d, w: %f, h: %f", i, bbox1.x, bbox1.y, bbox1.width, bbox1.height);
+  GST_DEBUG("i: %d, x: %f, y: %f, w: %f, h: %f", i, bbox1.x, bbox1.y, bbox1.width, bbox1.height);
 
 
 	if (found_det[i] != -2) {
