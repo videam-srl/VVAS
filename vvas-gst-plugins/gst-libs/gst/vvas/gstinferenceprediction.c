@@ -120,6 +120,7 @@ gst_inference_prediction_new (void)
   self->sub_buffer = NULL;
   self->segmentation.buffer = NULL;
   self->obj_track_label = NULL;
+  self->custom_label = NULL;
 
   prediction_reset (self);
 
@@ -215,6 +216,9 @@ prediction_copy (const GstInferencePrediction * self)
 
   if (self->obj_track_label)
     other->obj_track_label = g_strdup (self->obj_track_label);
+
+  if (self->custom_label)
+    other->custom_label = g_strdup(self->custom_label)
 
   other->reserved_1 = self->reserved_1;
   other->reserved_2 = self->reserved_2;
@@ -363,6 +367,7 @@ prediction_to_string (GstInferencePrediction * self, gint level)
       "%*s  enabled : %s,\n"
       "%*s  bbox : %s,\n"
       "%*s  track label : %s,\n"
+      "%*s  custom label : %s,\n"
       "%*s  classes : [\n"
       "%*s    %s\n"
       "%*s  ],\n"
@@ -374,6 +379,7 @@ prediction_to_string (GstInferencePrediction * self, gint level)
       indent, "", self->enabled ? "True" : "False",
       indent, "", bbox,
       indent, "", self->obj_track_label,
+      indent, "", self->custom_label,
       indent, "", indent, "", classes, indent, "",
       indent, "", indent, "", children, indent, "", indent, "");
 
@@ -500,8 +506,12 @@ prediction_free (GstInferencePrediction * self)
   if (self->obj_track_label != NULL)
     g_free(self->obj_track_label);
 
+  if (self->custom_label != NULL)
+    g_free(self->custom_label);
+
   self->sub_buffer = NULL;
   self->obj_track_label = NULL;
+  self->custom_label = NULL;
   self->reserved_1 = NULL;
   self->reserved_2 = NULL;
   self->reserved_3 = NULL;

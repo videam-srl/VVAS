@@ -107,6 +107,7 @@ struct _GstInferencePrediction
   gboolean bbox_scaled; /* bbox co-ordinates scaled to root node resolution or not */
   Segmentation segmentation;
   gchar *obj_track_label;
+  gchar *custom_label;
   /* for future extension */
   void * reserved_1;
   void * reserved_2;
