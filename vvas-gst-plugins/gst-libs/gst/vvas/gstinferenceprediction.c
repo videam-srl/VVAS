@@ -218,7 +218,7 @@ prediction_copy (const GstInferencePrediction * self)
     other->obj_track_label = g_strdup (self->obj_track_label);
 
   if (self->custom_label)
-    other->custom_label = g_strdup(self->custom_label)
+    other->custom_label = g_strdup(self->custom_label);
 
   other->reserved_1 = self->reserved_1;
   other->reserved_2 = self->reserved_2;
